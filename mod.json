@@ -3,7 +3,7 @@
   "id": "keep-donations",
   "name": "Keep Donations",
   "author": "Moru Zerinho6",
-  "version": "1.0.0",
-  "loader": "2.13.0",
+  "version": "1.1.0",
+  "loader": "2.22.0",
   "priority": 0
 }

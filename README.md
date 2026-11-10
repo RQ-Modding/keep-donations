@@ -16,12 +16,22 @@ transfer; with this mod the count, and Frostbuy's rewards for it, carry on.
 
 ## Keys and settings
 
-None.
+The mod's page in Config's **Mods** tab, **Keep Donations**, shows the loaded save's donations, the
+next reward's goal and the world, and sets the count by hand:
+
+- Choose the new count (0 to 99999) with **-** and **+** (Shift for 10 at a time), the wheel, or a
+  click on the number to type it.
+- **Set** asks on the page, with **Yes** and **No**. Yes writes the count, puts the next reward at the next multiple of 25 above it,
+  so the rewards the count already earned are not given again, and marks Frost's talk about
+  donations seen.
+- With no save loaded (Config from the title screen) the page says so.
+
+The save keeps the new count when the game saves.
 
 ## Saves
 
-The kept count is the game's own value in the save: it stays after the mod is removed. The mod keeps
-no data of its own.
+The kept count, and one set on the page, is the game's own value in the save: it stays after the mod
+is removed. The mod keeps no data of its own.
 
 A save that went through a transfer before the mod was installed has lost its old count, and the
 mod cannot bring it back.
@@ -32,7 +42,7 @@ Tested with every mod in the workspace installed. It touches no other mod's data
 
 ## Install
 
-Needs [RQ MOD](https://github.com/RQ-Modding/RQ-Mod) with loader **2.13.0** or newer. Extract the
+Needs [RQ MOD](https://github.com/RQ-Modding/RQ-Mod) with loader **2.22.0** or newer. Extract the
 release zip into the game's `mods` folder, so that you have `mods/keep-donations/mod.json`.
 
 ## License

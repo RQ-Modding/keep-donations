@@ -13,13 +13,13 @@ and `button-set`. Set asks on the page: a line with the count and the goal, and 
 next multiple of 25 above it, and the talk seen when the count is above 0. With no save loaded the
 field and Set are greyed. No `rq.agent.control` ids.
 
-And a hook on the game's world transfer (`ワールド切り替え処理`) puts back three values
-after it:
+And the loader's world-transfer events (`rq.world.on_transfer` and `on_transfer_after`, on the game's
+`ワールド切り替え処理`) put back three values after it:
 
 | Value | Read with | The game alone after a transfer |
 | --- | --- | --- |
-| Donations | `rq.ain.global("◆寄付")`, the hub's `donations` control | 0 |
-| Frostbuy's reward goal | `rq.ain.global("◆寄付ボーナス")` | 25 |
+| Donations | `rq.shop.donations()` (its first value), the hub's `donations` control | 0 |
+| Frostbuy's reward goal | `rq.shop.donations()` (its second value) | 25 |
 | Frost's talk seen | `rq.scene.seen("フロスト売店／寄付について")` | false |
 
 Each transfer writes `Keep Donations: kept N donations (goal G) through the transfer to world W` to
@@ -43,7 +43,7 @@ Each transfer writes `Keep Donations: kept N donations (goal G) through the tran
   `goal_for(n)` gives the goal it writes.
 - `rq.mod.get("keep-donations").last()` returns what the last transfer kept: `donations`, `goal`,
   `talk`, `world` (before the transfer), or nil.
-- `rq.ain.set_global("◆寄付", n)` and `("◆寄付ボーナス", n)` set the count and the goal;
+- `rq.shop.set_donations(n, goal)` sets the count and the goal;
   `rq.scene.seen("フロスト売店／寄付について", false)` makes the talk unseen.
 
 ## Test Lab

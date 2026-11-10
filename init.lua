@@ -2,9 +2,11 @@
 -- talk about donations, which the game resets.
 -- API reference: https://rq-modding.github.io/rq-modding-docs/reference/
 --
--- It works on the game's own code through rq.ain (notes/plans/plan-donations.md in the workspace):
--- ワールド切り替え処理 sets ◆寄付 to 0 and ◆寄付ボーナス to 25 and clears every event flag. With the
--- goal back at 25 and the talk unseen, Frostbuy would hand out every reward again, one per visit.
+-- The game's world transfer sets the donations count to 0 and the goal to 25 and clears every event
+-- flag (notes/plans/plan-donations.md in the workspace). With the goal back at 25 and the talk unseen,
+-- Frostbuy would hand out every reward again, one per visit. The mod reads them before the reset
+-- and writes them back after it (rq.world.on_transfer and on_transfer_after, rq.shop.donations,
+-- loader 2.23.0).
 
 local MOD = "Keep Donations"
 local TALK = "フロスト売店／寄付について"   -- Frost's talk; while unseen, Frostbuy sets the goal to 25
@@ -13,30 +15,29 @@ local held   -- the values read before the transfer, until it ends
 local last   -- what the last transfer kept, for the Lab
 
 local function read()
+  local donations, goal = rq.shop.donations()
   return {
-    donations = rq.ain.global("◆寄付"),
-    goal = rq.ain.global("◆寄付ボーナス"),
+    donations = donations,
+    goal = goal,
     talk = rq.scene.seen(TALK),
-    world = rq.ain.global("◆ワールド"),
+    world = rq.world.current() or 0,
   }
 end
 
-rq.ain.hook("ワールド切り替え処理", {
-  before = function()
-    held = read()
-  end,
-  after = function()
-    local v = held
-    held = nil
-    if not v then return end
-    rq.ain.set_global("◆寄付", v.donations)
-    rq.ain.set_global("◆寄付ボーナス", v.goal)
-    if v.talk then rq.scene.seen(TALK, true) end
-    last = v
-    rq.log(string.format("%s: kept %d donations (goal %d) through the transfer to world %d",
-      MOD, v.donations, v.goal, rq.ain.global("◆ワールド")))
-  end,
-})
+rq.world.on_transfer(function()
+  held = read()
+end)
+
+rq.world.on_transfer_after(function(ctx)
+  local v = held
+  held = nil
+  if not v then return end
+  rq.shop.set_donations(v.donations, v.goal)
+  if v.talk then rq.scene.seen(TALK, true) end
+  last = v
+  rq.log(string.format("%s: kept %d donations (goal %d) through the transfer to world %d",
+    MOD, v.donations, v.goal, ctx.world))
+end)
 
 -- The count by hand (1.1.0), on the mod's page in Config's Mods tab. "Set" writes the count, puts
 -- the goal at the next multiple of 25 above it, so the rewards the count already earned are not
@@ -52,13 +53,11 @@ end
 
 -- A save is loaded once the game is past the title: its world is 1 or more.
 local function loaded()
-  local w = rq.ain.global("◆ワールド")
-  return w ~= nil and w >= 1
+  return rq.world.current() ~= nil
 end
 
 local function set_count(n)
-  rq.ain.set_global("◆寄付", n)
-  rq.ain.set_global("◆寄付ボーナス", goal_for(n))
+  rq.shop.set_donations(n, goal_for(n))
   if n > 0 then rq.scene.seen(TALK, true) end
   rq.log(string.format("%s: donations set to %d (goal %d)", MOD, n, goal_for(n)))
 end

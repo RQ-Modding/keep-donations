@@ -3,6 +3,13 @@
 Each section is a version of the mod, the `version` in `mod.json`. The release workflow copies the
 section of a tagged version into the release notes.
 
+## 1.1.1
+
+- Works through the loader's calls for the world transfer and the donations (`rq.world.on_transfer`,
+  `on_transfer_after`, `rq.shop.donations`, `set_donations`) instead of the game's code. Nothing
+  changes for players.
+- Needs loader 2.23.0.
+
 ## 1.1.0
 
 - A page in Config's Mods tab shows the save's donations and sets the count by hand. Set asks on

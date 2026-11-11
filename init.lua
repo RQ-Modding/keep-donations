@@ -45,7 +45,6 @@ end)
 local STEP = 25
 local MAX = 99999
 local wanted -- the stepper's number, until set
-local asking = false -- Set was pressed: the page asks Yes or No
 
 local function goal_for(n)
   return (n // STEP + 1) * STEP
@@ -77,26 +76,19 @@ rq.config.page{
     ui.space(0, 6)
     wanted = wanted or v.donations
     local n = ui.stepper(wanted, { id = "count", label = "New count", min = 0, max = MAX, w = 90,
-      disabled = asking, tip = "Shift with - or + changes it by 10; a click on the number types it." })
+      tip = "Shift with - or + changes it by 10; a click on the number types it." })
     wanted = n
-    -- Set asks on the page: the game's Yes/No dialog (rq.ui.confirm) shows under Config.
-    if not asking then
-      if ui.button("Set", { id = "set", tip = "Writes the count into the loaded save." }) then asking = true end
-    else
-      ui.label(string.format("Set donations to %d? The next reward comes at %d.", n, goal_for(n)))
-      ui.row({ gap = 12 }, function()
-        if ui.button("Yes", { id = "yes" }) then
-          set_count(n)
-          asking = false
-        end
-        if ui.button("No", { id = "no" }) then asking = false end
-      end)
+    -- Set asks with the game's Yes/No, over Config since loader 2.28.0 (1.2.0).
+    if ui.button("Set", { id = "set", tip = "Writes the count into the loaded save." }) then
+      if rq.ui.confirm(string.format("Set donations to %d?\nThe next reward comes at %d.", n, goal_for(n))) then
+        set_count(n)
+      end
     end
     ui.space(0, 6)
     ui.label("The rewards the count already earned are not given again.", { dim = true, size = 15 })
     ui.label("The save keeps it when the game saves.", { dim = true, size = 15 })
   end,
-  on_open = function() wanted, asking = nil, false end,
+  on_open = function() wanted = nil end,
 }
 
 rq.log(MOD .. " loaded")

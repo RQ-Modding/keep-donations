@@ -8,9 +8,9 @@ Assume nothing about the mod when it is not installed: check `logs\rqmod.log` fo
 
 A page in Config's Mods tab, **Keep Donations** (1.1.0): the loaded save's values, a number field
 `stepper-count` (with `button-count-dec` and `-inc`; `press` it, `type` the count, `key enter`)
-and `button-set`. Set asks on the page: a line with the count and the goal, and `button-yes` and
-`button-no` (the game's own dialog would open under Config). Yes writes the count, the goal at the
-next multiple of 25 above it, and the talk seen when the count is above 0. With no save loaded the
+and `button-set`. Set asks in the game's own dialog over Config (1.2.0, loader 2.28.0): the screen
+is `select`, with the count and the goal in `select.message`, and `yes` and `no`. Yes writes the
+count, the goal at the next multiple of 25 above it, and the talk seen when the count is above 0. With no save loaded the
 field and Set are greyed. No `rq.agent.control` ids.
 
 And the loader's world-transfer events (`rq.world.on_transfer` and `on_transfer_after`, on the game's
@@ -51,7 +51,7 @@ Each transfer writes `Keep Donations: kept N donations (goal G) through the tran
 `test-lab/scenarios/keep-donations.lua`: the three values kept, Frostbuy after (no talk, no reward),
 an unseen talk kept unseen, zero donations, and the next reward still coming at the goal.
 
-`test-lab/scenarios/config-pages.lua`: the page, a count typed, No, then Yes (the count, the goal and
-the talk).
+`test-lab/scenarios/config-pages.lua`: the page, a count typed, No in the game's dialog, then Yes
+(the count, the goal and the talk).
 
 Not checked: Alice's real "Go to World 2" scene; the direct call runs the same function.

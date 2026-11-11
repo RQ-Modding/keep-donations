@@ -3,6 +3,12 @@
 Each section is a version of the mod, the `version` in `mod.json`. The release workflow copies the
 section of a tagged version into the release notes.
 
+## 1.2.0
+
+- Set on the mod's Config page asks with the game's own Yes/No dialog, over Config, in place of
+  the page's own Yes and No buttons.
+- Needs loader 2.28.0 (the game's dialogs over Config).
+
 ## 1.1.1
 
 - Works through the loader's calls for the world transfer and the donations (`rq.world.on_transfer`,

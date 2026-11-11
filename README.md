@@ -21,9 +21,9 @@ next reward's goal and the world, and sets the count by hand:
 
 - Choose the new count (0 to 99999) with **-** and **+** (Shift for 10 at a time), the wheel, or a
   click on the number to type it.
-- **Set** asks on the page, with **Yes** and **No**. Yes writes the count, puts the next reward at the next multiple of 25 above it,
-  so the rewards the count already earned are not given again, and marks Frost's talk about
-  donations seen.
+- **Set** asks in the game's own Yes/No dialog, over Config. Yes writes the count, puts the next
+  reward at the next multiple of 25 above it, so the rewards the count already earned are not given
+  again, and marks Frost's talk about donations seen.
 - With no save loaded (Config from the title screen) the page says so.
 
 The save keeps the new count when the game saves.

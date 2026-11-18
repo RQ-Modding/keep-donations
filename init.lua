@@ -3,7 +3,7 @@
 -- API reference: https://rq-modding.github.io/rq-modding-docs/reference/
 --
 -- The game's world transfer sets the donations count to 0 and the goal to 25 and clears every event
--- flag (notes/plans/plan-donations.md in the workspace). With the goal back at 25 and the talk unseen,
+-- flag. With the goal back at 25 and the talk unseen,
 -- Frostbuy would hand out every reward again, one per visit. The mod reads them before the reset
 -- and writes them back after it (rq.world.on_transfer and on_transfer_after, rq.shop.donations,
 -- loader 2.23.0).

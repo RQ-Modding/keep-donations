@@ -46,12 +46,12 @@ Each transfer writes `Keep Donations: kept N donations (goal G) through the tran
 - `rq.shop.set_donations(n, goal)` sets the count and the goal;
   `rq.scene.seen("フロスト売店／寄付について", false)` makes the talk unseen.
 
-## Test Lab
+## Tested in the game
 
-`test-lab/scenarios/keep-donations.lua`: the three values kept, Frostbuy after (no talk, no reward),
+The Test Lab's scenario `keep-donations`: the three values kept, Frostbuy after (no talk, no reward),
 an unseen talk kept unseen, zero donations, and the next reward still coming at the goal.
 
-`test-lab/scenarios/config-pages.lua`: the page, a count typed, No in the game's dialog, then Yes
+`config-pages`: the page, a count typed, No in the game's dialog, then Yes
 (the count, the goal and the talk).
 
 Not checked: Alice's real "Go to World 2" scene; the direct call runs the same function.

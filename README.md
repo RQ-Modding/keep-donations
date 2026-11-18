@@ -3,6 +3,10 @@
 Keep your donations when you move to a new world. The game sets the count back to 0 on a world
 transfer; with this mod the count, and Frostbuy's rewards for it, carry on.
 
+## Showcase
+
+<img width="1263" height="915" alt="image" src="https://github.com/user-attachments/assets/41e192ad-d5c5-4d0e-889b-b1cba08962b6" />
+
 ## What it changes
 
 - On a world transfer (Alice's "Go to World 2" or "Go to World 3"), the **donations** count stays
